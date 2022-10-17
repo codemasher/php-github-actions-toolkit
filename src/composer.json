@@ -1,0 +1,14 @@
+{
+	"require": {
+		"php": "^7.4 || ^8.0",
+		"ext-curl":"*",
+		"ext-openssl":"*",
+		"chillerlan/php-httpinterface": "dev-main#01771e8b69e18f8993202187a1eb262860e96b24"
+	},
+	"autoload": {
+		"files": [
+			"./common.php",
+			"./GitHubActionsToolkit.php"
+		]
+	}
+}

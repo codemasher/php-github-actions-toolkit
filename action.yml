@@ -1,0 +1,11 @@
+name: "PHP GitHub Actions Toolkit"
+description: "A collection of tools to use in GitHub Actions written in PHP"
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Generate include (Windows)"
+      id: "windows"
+      shell: powershell
+      run: php ${{github.action_path}}/src/create_include.php
