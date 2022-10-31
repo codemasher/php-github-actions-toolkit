@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e03f18c39af21d089398f884ca9525ae184c6095',
+        'reference' => '192cc8fcb99977b08e2e3d050f79efa49140c573',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e03f18c39af21d089398f884ca9525ae184c6095',
+            'reference' => '192cc8fcb99977b08e2e3d050f79efa49140c573',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -33,7 +33,7 @@
         'chillerlan/php-httpinterface' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '2004d33a6d071e48d1f7968133d15b14cd6215ce',
+            'reference' => 'c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../chillerlan/php-httpinterface',
             'aliases' => array(

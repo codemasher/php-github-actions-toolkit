@@ -6,7 +6,7 @@
 		"ext-curl":"*",
 		"ext-openssl":"*",
 		"ext-zip": "*",
-		"chillerlan/php-httpinterface": "dev-main#2004d33a6d071e48d1f7968133d15b14cd6215ce"
+		"chillerlan/php-httpinterface": "dev-main#c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a"
 	},
 	"autoload": {
 		"files": [

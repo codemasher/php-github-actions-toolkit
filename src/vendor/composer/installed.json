@@ -81,12 +81,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-httpinterface.git",
-                "reference": "2004d33a6d071e48d1f7968133d15b14cd6215ce"
+                "reference": "c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/2004d33a6d071e48d1f7968133d15b14cd6215ce",
-                "reference": "2004d33a6d071e48d1f7968133d15b14cd6215ce",
+                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a",
+                "reference": "c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "phan/phan": "^5.4",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2022-10-31T13:07:59+00:00",
+            "time": "2022-10-31T15:30:25+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
