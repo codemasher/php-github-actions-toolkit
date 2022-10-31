@@ -24,6 +24,7 @@ class GitHubActionsToolkit{
 
 	const TOOLKIT_SRC = __DIR__;
 	const USER_AGENT  = 'phpGithubActionsToolkit/1.0 +https://github.com/codemasher/php-github-actions-toolkit';
+	const TMP_DIR     = '/.github/.action_toolkit_tmp';
 
 	private CurlClient $http;
 	private string $github_output;
@@ -39,7 +40,7 @@ class GitHubActionsToolkit{
 			'timeout'    => 0,
 		]);
 
-		$this->http  = new CurlClient($httpOptions);
+		$this->http          = new CurlClient($httpOptions);
 		$this->github_output = getenv('GITHUB_OUTPUT');
 	}
 
@@ -61,7 +62,7 @@ class GitHubActionsToolkit{
 	 *
 	 */
 	public function getActionTmp():string{
-		$tmpdir = $this->getWorkspaceRoot().'/.github/.action_toolkit_tmp';
+		$tmpdir = $this->getWorkspaceRoot().self::TMP_DIR;
 
 		if(!file_exists($tmpdir)){
 			mkdir($tmpdir);
@@ -75,8 +76,7 @@ class GitHubActionsToolkit{
 	 */
 	public function outputVar(string $name, string $value):void{
 #		echo "::set-output name=$name::$value\n";
-		`echo "{$name}={$value}" >> {$this->github_output}`;
-#		file_put_contents($this->github_output, sprintf("%s=%s\n", $name, $value), FILE_APPEND);
+		file_put_contents($this->github_output, sprintf("%s=%s\n", $name, $value), FILE_APPEND);
 	}
 
 	/**
