@@ -26,6 +26,7 @@ class GitHubActionsToolkit{
 	const USER_AGENT  = 'phpGithubActionsToolkit/1.0 +https://github.com/codemasher/php-github-actions-toolkit';
 
 	private CurlClient $http;
+	private string $github_output;
 
 	/**
 	 *
@@ -39,6 +40,7 @@ class GitHubActionsToolkit{
 		]);
 
 		$this->http  = new CurlClient($httpOptions);
+		$this->github_output = getenv('GITHUB_OUTPUT');
 	}
 
 	/**
@@ -72,9 +74,10 @@ class GitHubActionsToolkit{
 	 * @todo https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
 	 */
 	public function outputVar(string $name, string $value):void{
-		echo "::set-output name=$name::$value\n";
+#		echo "::set-output name=$name::$value\n";
 #		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
 #		exec('echo "'.$name.'='.$value.'" >> $GITHUB_ENV');
+		file_put_contents($this->github_output, sprintf("%s=%s\n", $name, $value), FILE_APPEND);
 	}
 
 	/**
