@@ -72,9 +72,9 @@ class GitHubActionsToolkit{
 	 * @todo https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
 	 */
 	public function outputVar(string $name, string $value):void{
-#		echo "::set-output name=$name::$value\n";
+		echo "::set-output name=$name::$value\n";
 #		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
-		exec('echo '.$name.'='.$value.' >> $GITHUB_ENV');
+#		exec('echo "'.$name.'='.$value.'" >> $GITHUB_ENV');
 	}
 
 	/**
