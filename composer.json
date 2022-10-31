@@ -1,11 +1,11 @@
 {
-	"name": "chillerlan/php-qrcode",
-	"description": "A QR code generator and reader with a user friendly API. PHP 7.4+",
-	"homepage": "https://github.com/chillerlan/php-qrcode",
+	"name": "codemasher/php-github-actions-toolkit",
+	"description": "GitHub Actions written in PHP???",
+	"homepage": "https://github.com/codemasher/php-github-actions-toolkit",
 	"license": "MIT",
 	"minimum-stability": "stable",
 	"type": "project",
-	"keywords": [],
+	"keywords": ["GitHub Actions", "workflow", "CI"],
 	"authors": [
 		{
 			"name": "Smiley",
@@ -14,13 +14,14 @@
 		},
 		{
 			"name": "Contributors",
-			"homepage":"https://github.com/chillerlan/php-qrcode/graphs/contributors"
+			"homepage":"https://github.com/codemasher/php-github-actions-toolkit/graphs/contributors"
 		}
 	],
 	"require": {
 		"php": "^7.4 || ^8.0",
 		"ext-curl":"*",
-		"ext-openssl":"*"
+		"ext-openssl":"*",
+		"ext-zip": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.5",
@@ -33,7 +34,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"chillerlan\\GitHubActionsToolkitTest\\": "tests/"
+			"GitHubActionsToolkitTest\\": "tests/"
 		}
 	},
 	"scripts": {

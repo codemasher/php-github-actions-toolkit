@@ -1,14 +1,16 @@
 {
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"require": {
 		"php": "^7.4 || ^8.0",
 		"ext-curl":"*",
 		"ext-openssl":"*",
-		"chillerlan/php-httpinterface": "dev-main#01771e8b69e18f8993202187a1eb262860e96b24"
+		"ext-zip": "*",
+		"chillerlan/php-httpinterface": "dev-main#2004d33a6d071e48d1f7968133d15b14cd6215ce"
 	},
 	"autoload": {
 		"files": [
-			"./common.php",
-			"./GitHubActionsToolkit.php"
+			"./common.php"
 		]
 	}
 }

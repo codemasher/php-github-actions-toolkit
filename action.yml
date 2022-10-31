@@ -8,4 +8,4 @@ runs:
     - name: "Generate include (Windows)"
       id: "windows"
       shell: powershell
-      run: php ${{github.action_path}}/src/create_include.php
+      run: c:\tools\php\php.exe ${{github.action_path}}/src/create_include.php

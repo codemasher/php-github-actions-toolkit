@@ -8,16 +8,11 @@
  * @license      MIT
  */
 
-require_once __DIR__.'/common.php';
-
-
-var_dump([GITHUB_ACTION_ROOT, ACTION_TOOLKIT_SRC, ACTION_TOOLKIT_TMP, GITHUB_WORKSPACE_ROOT]);
-
 $include = '<?php
-require_once \''.realpath(ACTION_TOOLKIT_SRC.'/vendor/autoload.php').'\';
+require_once \''.realpath(__DIR__.'/vendor/autoload.php').'\';
 ';
 
-var_dump($include);
+$path = ($_SERVER['GITHUB_WORKSPACE'] ?? realpath(__DIR__.'/..')).'/.github/github_actions_toolkit.php';
+file_put_contents($path, $include);
 
-file_put_contents(GITHUB_ACTION_ROOT.'/github_actions_toolkit.php', $include);
-file_put_contents(GITHUB_WORKSPACE_ROOT.'/github_actions_toolkit.php', $include);
+var_dump(realpath($path));

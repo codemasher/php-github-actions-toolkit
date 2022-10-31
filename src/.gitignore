@@ -1,0 +1,14 @@
+# exclude all unnecessary files to reduce bloat
+vendor/**/.gitignore
+vendor/**/*.md
+!vendor/**/LICENSE.md
+vendor/**/*.xml*
+vendor/**/*.yml
+vendor/**/composer.*
+vendor/**/readme*
+vendor/**/.github/**
+vendor/**/.phan/**
+vendor/**/docs/**
+vendor/**/examples/**
+vendor/**/tests/**
+vendor/**/Psr/Log/Test/**

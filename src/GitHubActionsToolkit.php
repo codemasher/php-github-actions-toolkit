@@ -11,31 +11,77 @@
 use chillerlan\HTTP\HTTPOptions;
 use chillerlan\HTTP\Psr18\CurlClient;
 use chillerlan\HTTP\Psr7\Request;
+use chillerlan\HTTP\Psr7\Response;
+use chillerlan\HTTP\Psr7\Stream;
 use chillerlan\HTTP\Psr7\Uri;
-use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- *
+ * https://github.com/actions/toolkit
  */
 class GitHubActionsToolkit{
 
-	/** @var \chillerlan\HTTP\HTTPOptions */
-	private $httpOptions;
+	const TOOLKIT_SRC = __DIR__;
+	const USER_AGENT  = 'phpGithubActionsToolkit/1.0 +https://github.com/codemasher/php-github-actions-toolkit';
+
+	private CurlClient $http;
 
 	/**
 	 *
 	 */
 	public function __construct(){
-		$this->httpOptions = new HTTPOptions;
-		$this->httpOptions->ca_info    = ACTION_TOOLKIT_SRC.'/cacert.pem';
-		$this->httpOptions->user_agent = ACTION_TOOLKIT_UA;
+
+		$httpOptions = new HTTPOptions([
+			'ca_info'    => self::TOOLKIT_SRC.'/cacert.pem',
+			'user_agent' => self::USER_AGENT,
+			'timeout'    => 0,
+		]);
+
+		$this->http  = new CurlClient($httpOptions);
 	}
 
 	/**
-	 * Returns a PSR-18 compatible http client
+	 *
 	 */
-	private function getHttpClient():ClientInterface{
-		return new CurlClient($this->httpOptions);
+	public function getActionRoot():string{
+		return $_SERVER['GITHUB_ACTION_PATH'] ?? realpath(__DIR__.'/..');
+	}
+
+	/**
+	 *
+	 */
+	public function getWorkspaceRoot():string{
+		return $_SERVER['GITHUB_WORKSPACE'] ?? $this->getActionRoot();
+	}
+
+	/**
+	 *
+	 */
+	public function getActionTmp():string{
+		$tmpdir = $this->getWorkspaceRoot().'/.github/.action_toolkit_tmp';
+
+		if(!file_exists($tmpdir)){
+			mkdir($tmpdir);
+		}
+
+		return realpath($tmpdir) ?: '';
+	}
+
+	/**
+	 * @todo https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+	 */
+	public function outputVar(string $name, string $value):void{
+		echo "::set-output name=$name::$value\n";
+	}
+
+	/**
+	 *
+	 */
+	public function outputVars(array $vars):void{
+		foreach($vars as $name => $value){
+			$this->outputVar($name, $value);
+		}
 	}
 
 	/**
@@ -44,10 +90,8 @@ class GitHubActionsToolkit{
 	 * @throws \chillerlan\HTTP\Psr18\RequestException
 	 */
 	public function fetchFromURL(string $url):?string{
-		$http = $this->getHttpClient();
-
 		$request  = new Request('GET', new Uri($url));
-		$response = $http->sendRequest($request);
+		$response = $this->http->sendRequest($request);
 
 		// i wonder how this works out on GitHub with its broken curl_getinfo()
 		if(!in_array($response->getStatusCode(), [200, 204, 206, 301], true)){
@@ -57,6 +101,70 @@ class GitHubActionsToolkit{
 		}
 
 		return $response->getBody()->getContents();
+	}
+
+	/**
+	 *
+	 */
+	public function downloadFile(string $url, string $destination = null):bool{
+		$destination ??= $this->getActionTmp();
+		$dest          = dirname($destination);
+
+		if(!file_exists($dest) || !is_dir($dest) || !is_writable($dest)){
+			throw new RuntimeException(sprintf('download destination is not writable: %s', $dest));
+		}
+
+		$responseFactory = new class($destination) implements ResponseFactoryInterface{
+			private string $dest;
+
+			public function __construct(string $dest){
+				$this->dest = $dest;
+			}
+
+			public function createResponse(int $code = 200, string $reasonPhrase = ''):ResponseInterface{
+				return new Response($code, null, new Stream(fopen($this->dest, 'w')), null, $reasonPhrase);
+			}
+		};
+
+		// the PHP-FIG doesn't want us to have nice things https://github.com/php-fig/http-factory-util/pull/1
+		$this->http->setResponseFactory($responseFactory);
+
+		$request  = new Request('GET', new Uri($url));
+		$response = $this->http->sendRequest($request);
+
+		if($response->getStatusCode() !== 200){
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 *
+	 */
+	function unzip(string $zipfile, string $dest):bool{
+#		echo "extracting: $zipfile to $dest\n";
+
+		if(!is_readable($zipfile)){
+#			echo "zip file not readable: $zipfile\n";
+			return false;
+		}
+
+		$zip = new ZipArchive;
+
+		if($zip->open($zipfile) === false){
+#			echo "failed to open zip file: $zipfile\n";
+			return false;
+		}
+
+		if($zip->extractTo($dest) === false){
+#			echo "failed to extract zip file: $zipfile to $dest\n";
+			return false;
+		}
+
+		$zip->close();
+
+		return true;
 	}
 
 }
