@@ -75,9 +75,8 @@ class GitHubActionsToolkit{
 	 */
 	public function outputVar(string $name, string $value):void{
 #		echo "::set-output name=$name::$value\n";
-#		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
-#		exec('echo "'.$name.'='.$value.'" >> $GITHUB_ENV');
-		file_put_contents($this->github_output, sprintf("%s=%s\n", $name, $value), FILE_APPEND);
+		`echo "{$name}={$value}" >> {$this->github_output}`;
+#		file_put_contents($this->github_output, sprintf("%s=%s\n", $name, $value), FILE_APPEND);
 	}
 
 	/**
