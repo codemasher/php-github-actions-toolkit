@@ -72,7 +72,8 @@ class GitHubActionsToolkit{
 	 * @todo https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
 	 */
 	public function outputVar(string $name, string $value):void{
-		echo "::set-output name=$name::$value\n";
+#		echo "::set-output name=$name::$value\n";
+		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
 	}
 
 	/**
@@ -112,6 +113,10 @@ class GitHubActionsToolkit{
 
 		if(!file_exists($dest) || !is_dir($dest) || !is_writable($dest)){
 			throw new RuntimeException(sprintf('download destination is not writable: %s', $dest));
+		}
+
+		if(is_dir($destination)){
+			$destination .= DIRECTORY_SEPARATOR.basename($url);
 		}
 
 		$responseFactory = new class($destination) implements ResponseFactoryInterface{
