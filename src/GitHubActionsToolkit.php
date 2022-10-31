@@ -73,7 +73,8 @@ class GitHubActionsToolkit{
 	 */
 	public function outputVar(string $name, string $value):void{
 #		echo "::set-output name=$name::$value\n";
-		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
+#		`echo "{$name}={$value}" >> \$GITHUB_OUTPUT`;
+		exec('echo '.$name.'='.$value.' >> $GITHUB_ENV');
 	}
 
 	/**
