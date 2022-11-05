@@ -3,17 +3,17 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '192cc8fcb99977b08e2e3d050f79efa49140c573',
+        'reference' => '3eec61fd6bfa0eb86583428929c5b32b8db43b9f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => false,
+        'dev' => true,
     ),
     'versions' => array(
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '192cc8fcb99977b08e2e3d050f79efa49140c573',
+            'reference' => '3eec61fd6bfa0eb86583428929c5b32b8db43b9f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'chillerlan/php-http-message-utils' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '48be8fa0b58a80fdffb0ebfc438e75e23a1d5deb',
+            'reference' => '4d1b1ff2f32b01d6e710a41a5117a02babef5a62',
             'type' => 'library',
             'install_path' => __DIR__ . '/../chillerlan/php-http-message-utils',
             'aliases' => array(
@@ -33,7 +33,7 @@
         'chillerlan/php-httpinterface' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a',
+            'reference' => '3e626b286fd5ecfa33c1a087a53ed84046d89d4e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../chillerlan/php-httpinterface',
             'aliases' => array(

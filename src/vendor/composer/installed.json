@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-http-message-utils.git",
-                "reference": "48be8fa0b58a80fdffb0ebfc438e75e23a1d5deb"
+                "reference": "4d1b1ff2f32b01d6e710a41a5117a02babef5a62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-http-message-utils/zipball/48be8fa0b58a80fdffb0ebfc438e75e23a1d5deb",
-                "reference": "48be8fa0b58a80fdffb0ebfc438e75e23a1d5deb",
+                "url": "https://api.github.com/repos/chillerlan/php-http-message-utils/zipball/4d1b1ff2f32b01d6e710a41a5117a02babef5a62",
+                "reference": "4d1b1ff2f32b01d6e710a41a5117a02babef5a62",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
                 "phan/phan": "^5.4",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2022-10-22T13:26:13+00:00",
+            "time": "2022-11-01T19:05:40+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -81,16 +81,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-httpinterface.git",
-                "reference": "c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a"
+                "reference": "3e626b286fd5ecfa33c1a087a53ed84046d89d4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a",
-                "reference": "c6937b3e60b1ad9b73731e9eae9423dfb29d4e9a",
+                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/3e626b286fd5ecfa33c1a087a53ed84046d89d4e",
+                "reference": "3e626b286fd5ecfa33c1a087a53ed84046d89d4e",
                 "shasum": ""
             },
             "require": {
-                "chillerlan/php-http-message-utils": "dev-main#48be8fa0b58a80fdffb0ebfc438e75e23a1d5deb",
+                "chillerlan/php-http-message-utils": "dev-main#4d1b1ff2f32b01d6e710a41a5117a02babef5a62",
                 "chillerlan/php-settings-container": "^2.1",
                 "ext-curl": "*",
                 "ext-json": "*",
@@ -117,7 +117,7 @@
                 "phan/phan": "^5.4",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2022-10-31T15:30:25+00:00",
+            "time": "2022-11-05T17:53:43+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -634,6 +634,6 @@
             "install-path": "../psr/log"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }

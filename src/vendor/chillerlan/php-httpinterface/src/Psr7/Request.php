@@ -29,22 +29,16 @@ class Request extends Message implements RequestInterface, RequestMethodInterfac
 	/**
 	 * Request constructor.
 	 *
-	 * @param string                                                 $method
-	 * @param string|\Psr\Http\Message\UriInterface                  $uri
-	 * @param array|null                                             $headers
-	 * @param null|string|resource|\Psr\Http\Message\StreamInterface $body
-	 * @param string|null                                            $version
+	 * @param string                                $method
+	 * @param string|\Psr\Http\Message\UriInterface $uri
 	 */
-	public function __construct(string $method, $uri, array $headers = null, $body = null, string $version = null){
-		parent::__construct($headers, $body, $version);
+	public function __construct(string $method, $uri){
+		parent::__construct();
 
 		$this->method = strtoupper($method);
 		$this->uri    = $uri instanceof UriInterface ? $uri : new Uri($uri);
 
-		if(!$this->hasHeader('Host')){
-			$this->updateHostFromUri();
-		}
-
+		$this->updateHostFromUri();
 	}
 
 	/**
@@ -58,7 +52,7 @@ class Request extends Message implements RequestInterface, RequestMethodInterfac
 
 		$target = $this->uri->getPath();
 
-		if($target == ''){
+		if($target === ''){
 			$target = '/';
 		}
 
@@ -133,7 +127,7 @@ class Request extends Message implements RequestInterface, RequestMethodInterfac
 	}
 
 	/**
-	 * @return void
+	 *
 	 */
 	protected function updateHostFromUri():void{
 		$host = $this->uri->getHost();

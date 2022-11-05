@@ -11,7 +11,9 @@
 namespace chillerlan\HTTP\Psr7;
 
 use Fig\Http\Message\StatusCodeInterface;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
+use function is_string, trim;
 
 class Response extends Message implements ResponseInterface, StatusCodeInterface{
 
@@ -95,35 +97,21 @@ class Response extends Message implements ResponseInterface, StatusCodeInterface
 		599                                          => 'Network Connect Timeout Error',
 	];
 
-	/**
-	 * @var string
-	 */
 	protected string $reasonPhrase;
 
-	/**
-	 * @var int
-	 */
 	protected int $statusCode;
 
 	/**
 	 * Response constructor.
 	 *
-	 * @param int|null                                               $status
-	 * @param array|null                                             $headers
-	 * @param string|null|resource|\Psr\Http\Message\StreamInterface $body
-	 * @param string|null                                            $version
-	 * @param string|null                                            $reason
+	 * @param int|null    $status
+	 * @param string|null $reason
 	 */
-	public function __construct(int $status = null, array $headers = null, $body = null, string $version = null, string $reason = null){
-		parent::__construct($headers, $body, $version);
-
-		$reason = $reason ?? '';
+	public function __construct(int $status = null, string $reason = null){
+		parent::__construct();
 
 		$this->statusCode   = $status ?? $this::STATUS_OK;
-		$this->reasonPhrase = $reason === '' && isset($this::REASON_PHRASES[$this->statusCode])
-			? $this::REASON_PHRASES[$this->statusCode]
-			: $reason;
-
+		$this->reasonPhrase = $reason ?? $this::REASON_PHRASES[$this->statusCode] ?? '';
 	}
 
 	/**
@@ -137,16 +125,17 @@ class Response extends Message implements ResponseInterface, StatusCodeInterface
 	 * @inheritDoc
 	 */
 	public function withStatus($code, $reasonPhrase = ''):ResponseInterface{
-		$code         = (int)$code;
-		$reasonPhrase = (string)$reasonPhrase;
 
-		if($reasonPhrase === '' && isset($this::REASON_PHRASES[$code])){
-			$reasonPhrase = $this::REASON_PHRASES[$code];
+		if(!is_string($reasonPhrase)){
+			throw new InvalidArgumentException('invalid reason phrase');
 		}
+
+		$code         = (int)$code;
+		$reasonPhrase = trim($reasonPhrase);
 
 		$clone               = clone $this;
 		$clone->statusCode   = $code;
-		$clone->reasonPhrase = $reasonPhrase;
+		$clone->reasonPhrase = $reasonPhrase !== '' ? $reasonPhrase : $this::REASON_PHRASES[$code];
 
 		return $clone;
 	}
